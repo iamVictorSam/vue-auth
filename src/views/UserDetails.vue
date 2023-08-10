@@ -55,7 +55,7 @@ export default {
 <style>
 .buttonCont {
   display: flex;
-  gap: 30px;
+  gap: 29px;
   margin-top: 30px;
 }
 
