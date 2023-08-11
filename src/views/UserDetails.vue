@@ -90,7 +90,7 @@ export default {
 
 .detail-table th {
   padding-top: 15px;
-  padding-bottom: 10px;
+  padding-bottom: 9px;
   text-align: left;
   background-color: #046daa;
   color: white;
