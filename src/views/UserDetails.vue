@@ -73,7 +73,7 @@ export default {
 .detail-table td,
 .detail-table th {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 9px;
 }
 
 .detail-table tr:nth-child(even) {
