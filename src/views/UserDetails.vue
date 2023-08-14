@@ -36,7 +36,7 @@ export default {
   },
   async created() {
     const authToken = await this.$auth.tokenManager.get("idToken");
-    this.userClaims = await Object.entries(authToken.claims).map((entry) => ({
+    this.userClaims = Object.entries(authToken.claims).map((entry) => ({
       claimType: entry[0],
       claimValue: entry[1],
     }));
