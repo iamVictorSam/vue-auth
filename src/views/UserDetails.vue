@@ -56,7 +56,7 @@ export default {
 .buttonCont {
   display: flex;
   gap: 29px;
-  margin-top: 30px;
+  margin-top: 29px;
 }
 
 .logoutBtn {
