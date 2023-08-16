@@ -1,5 +1,5 @@
 <template>
-  <div class="details">
+  <div>
     <h1>User Information</h1>
     <br />
     <table class="detail-table">
@@ -10,43 +10,43 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(claim, index) in claims" :key="index">
-          <td>{{ claim.claim }}</td>
-          <td :id="'claim-' + claim.claim">{{ claim.value }}</td>
+        <tr v-for="(claim, index) in userClaims" :key="index">
+          <td>{{ claim.claimType }}</td>
+          <td :id="'claim-' + claim.claimType">{{ claim.claimValue }}</td>
         </tr>
       </tbody>
     </table>
 
     <div class="buttonCont">
-      <button class="logoutBtn" v-on:click="logout" id="">Logout</button>
-      <button v-on:click="goHome" id="">Home</button>
+      <button class="logoutBtn" v-on:click="userLogout" id="">Logout</button>
+      <button v-on:click="navigateHome" id="">Home</button>
     </div>
   </div>
 </template>
 
 <script>
-import router from "../router";
+import myRouter from "../router";
 
 export default {
-  name: "Profile",
+  name: "UserProfile",
   data() {
     return {
-      claims: [],
+      userClaims: [],
     };
   },
   async created() {
-    const idToken = await this.$auth.tokenManager.get("idToken");
-    this.claims = await Object.entries(idToken.claims).map((entry) => ({
-      claim: entry[0],
-      value: entry[1],
+    const authToken = await this.$auth.tokenManager.get("idToken");
+    this.userClaims = await Object.entries(authToken.claims).map((entry) => ({
+      claimType: entry[0],
+      claimValue: entry[1],
     }));
   },
   methods: {
-    async logout() {
+    async userLogout() {
       await this.$auth.signOut();
     },
-    async goHome() {
-      await router.push("/");
+    async navigateHome() {
+      await myRouter.push("/");
     },
   },
 };
