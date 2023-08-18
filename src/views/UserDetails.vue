@@ -16,7 +16,6 @@
         </tr>
       </tbody>
     </table>
-
     <div class="buttonCont">
       <button class="logoutBtn" v-on:click="userLogout" id="">Logout</button>
       <button v-on:click="navigateHome" id="">Home</button>
