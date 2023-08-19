@@ -16,8 +16,7 @@
 }
 
 .container {
-  padding: 8rem;
-  height: 100vh;
+  padding: 3rem;
   color: whitesmoke;
   background-color: black;
 }
