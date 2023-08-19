@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <main>
     <div v-if="!authState?.isAuthenticated">
       <h1>Welcome To HomePage</h1>
       <br />
@@ -12,11 +12,11 @@
         amazing features that await you. Click to Login and Explore ➡️ 🚀🔐
       </p>
       <br />
-      <button id="login-button" class="" v-on:click="login">Login</button>
+      <button v-on:click="login">Login</button>
     </div>
 
     <div v-if="authState?.isAuthenticated">
-      <h1>Welcome {{ userArray && userArray.name }}!</h1>
+      <h1>Welcome {{ userData && userData.name }}!!!</h1>
       <br />
       <p>
         🎉 Congratulations! 🎉 You're now successfully logged in to your
@@ -42,59 +42,50 @@
             </tr>
           </tbody>
         </table>
-        <div class="buttonCont">
-          <button class="logoutBtn" v-on:click="userLogout" id="">
-            Logout
-          </button>
-        </div>
+        <br />
+        <button class="logoutBtn" v-on:click="userLogout">Logout</button>
       </div>
     </div>
-  </div>
-
-  <br />
+  </main>
 </template>
 
 <script>
 export default {
-  name: "home",
-  data: function () {
+  name: "HomeView",
+  data() {
     return {
-      userArray: "",
+      userData: null,
       userClaims: [],
     };
   },
   async created() {
-    this.userDetails();
+    await this.fetchUserDetails();
   },
   methods: {
-    async userDetails() {
-      if (this.authState?.isAuthenticated) {
+    async fetchUserDetails() {
+      if (this.$auth.isAuthenticated) {
         const authToken = await this.$auth.tokenManager.get("idToken");
 
-        this.userArray = await this.$auth.getUser();
-        this.userClaims = Object.entries(authToken.claims).map((entry) => ({
-          claimType: entry[0],
-          claimValue: entry[1],
-        }));
+        this.user = await this.$auth.getUser();
+        this.userClaims = Object.entries(authToken.claims).map(
+          ([claimType, claimValue]) => ({
+            claimType,
+            claimValue,
+          })
+        );
       }
     },
     async userLogout() {
       await this.$auth.signOut();
     },
-    login() {
-      this.$auth.signInWithRedirect();
+    async userLogin() {
+      await this.$auth.signInWithRedirect();
     },
   },
 };
 </script>
 
 <style>
-.buttonCont {
-  display: flex;
-  gap: 29px;
-  margin-top: 29px;
-}
-
 .logoutBtn {
   background-color: red;
 }
