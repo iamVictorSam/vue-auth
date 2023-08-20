@@ -13,10 +13,11 @@
   box-sizing: border-box;
 }
 
-.container {
+#app {
   padding: 3rem;
   color: whitesmoke;
   background-color: black;
+  height: 110vh;
 }
 
 button {

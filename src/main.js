@@ -5,8 +5,8 @@ import App from './App.vue'
 import router from './router'
 
 const oktaAuth = new OktaAuth({
-  clientId: '0oaaw0r4o9xtBixjI5d7',
-  issuer: 'https://dev-97016345.okta.com/oauth2/default',
+  clientId: '0oa5uopvzs8AgxjfI5d7',
+  issuer: 'https://dev-23240032.okta.com/oauth2/default',
   redirectUri: `${window.location.origin}/login/callback`,
   scopes: ['openid', 'profile', 'email']
 });

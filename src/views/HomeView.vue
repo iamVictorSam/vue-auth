@@ -12,11 +12,11 @@
         amazing features that await you. Click to Login and Explore ➡️ 🚀🔐
       </p>
       <br />
-      <button v-on:click="login">Login</button>
+      <button v-on:click="userLogin">Login</button>
     </div>
 
     <div v-if="authState?.isAuthenticated">
-      <h1>Welcome {{ userData && userData.name }}!!!</h1>
+      <h1>Welcome {{ userData && userData.name }}!</h1>
       <br />
       <p>
         🎉 Congratulations! 🎉 You're now successfully logged in to your
@@ -36,9 +36,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(claim, index) in userClaims" :key="index">
-              <td>{{ claim.claimType }}</td>
-              <td :id="'claim-' + claim.claimType">{{ claim.claimValue }}</td>
+            <tr v-for="(x, index) in userClaims" :key="index">
+              <td>{{ x.claimType }}</td>
+              <td :id="'id-' + x.claimType">{{ x.claimValue }}</td>
             </tr>
           </tbody>
         </table>
@@ -52,21 +52,21 @@
 <script>
 export default {
   name: "HomeView",
-  data() {
+  data: function () {
     return {
       userData: null,
       userClaims: [],
     };
   },
   async created() {
-    await this.fetchUserDetails();
+    this.userDetails();
   },
   methods: {
-    async fetchUserDetails() {
-      if (this.$auth.isAuthenticated) {
+    async userDetails() {
+      if (this.authState?.isAuthenticated) {
         const authToken = await this.$auth.tokenManager.get("idToken");
 
-        this.user = await this.$auth.getUser();
+        this.userArray = await this.$auth.getUser();
         this.userClaims = Object.entries(authToken.claims).map(
           ([claimType, claimValue]) => ({
             claimType,
